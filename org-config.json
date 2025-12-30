@@ -1,10 +1,32 @@
 {
-    "$schema": "../src/scc_cli/schemas/org-v1.schema.json",
+    "$schema": "https://scc-cli.dev/schemas/org-v1.json",
     "schema_version": "1.0.0",
     "organization": {
         "name": "Hofors kommun",
         "id": "hofors-kommun",
         "contact": "it-support@hofors.se"
+    },
+    "marketplaces": {
+        "sandboxed-code-official": {
+            "source": "github",
+            "owner": "CCimen",
+            "repo": "sandboxed-code-plugins"
+        },
+        "anthropic-official": {
+            "source": "github",
+            "owner": "anthropics",
+            "repo": "claude-code-plugins"
+        },
+        "wshobson-agents": {
+            "source": "github",
+            "owner": "wshobson",
+            "repo": "claude-code-agents"
+        },
+        "thedotmack-mem": {
+            "source": "github",
+            "owner": "thedotmack",
+            "repo": "claude-mem"
+        }
     },
     "security": {
         "blocked_plugins": ["*-experimental", "*-unsafe"],
@@ -12,38 +34,23 @@
         "blocked_base_images": ["*:latest"],
         "allow_stdio_mcp": false,
         "safety_net": {
-            "enabled": true,
-            "policy_path": "https://raw.githubusercontent.com/CCimen/sandboxed-code-plugins/main/scc-safety-net/policies/default.md"
+            "action": "block",
+            "block_force_push": true,
+            "block_reset_hard": true,
+            "block_branch_force_delete": true,
+            "block_checkout_restore": true,
+            "block_clean": true,
+            "block_stash_destructive": true
         }
     },
     "defaults": {
-        "allowed_plugins": ["scc-safety-net@sandboxed-code-official"],
-        "network_policy": "unrestricted"
-    },
-    "marketplaces": {
-        "sandboxed-code-official": {
-            "source": "github",
-            "owner": "CCimen",
-            "repo": "sandboxed-code-plugins",
-            "description": "Official SCC plugins including safety-net"
-        },
-        "anthropic-official": {
-            "source": "github",
-            "owner": "anthropics",
-            "repo": "claude-code-plugins",
-            "description": "Anthropic's official Claude Code plugins"
-        },
-        "wshobson-agents": {
-            "source": "github",
-            "owner": "wshobson",
-            "repo": "claude-code-agents",
-            "description": "Community agents for accessibility and Python development"
-        },
-        "thedotmack-mem": {
-            "source": "github",
-            "owner": "thedotmack",
-            "repo": "claude-mem",
-            "description": "Memory and context management for Claude"
+        "enabled_plugins": [
+            "scc-safety-net@sandboxed-code-official"
+        ],
+        "network_policy": "unrestricted",
+        "session": {
+            "timeout_hours": 12,
+            "auto_resume": true
         }
     },
     "delegation": {
@@ -52,49 +59,56 @@
             "allow_additional_mcp_servers": ["pixeldraken", "api-ninjas"]
         },
         "projects": {
-            "allow_plugin_overrides": true,
-            "override_scope": ["enabled_plugins", "disabled_plugins"]
+            "inherit_team_delegation": true
         }
     },
     "profiles": {
         "pixeldraken": {
             "description": "Frontend React team - 'The Pixel Dragon' - breathing fire into UIs since 2024",
-            "tech_stack": ["React", "Next.js", "TypeScript", "TailwindCSS"],
-            "enabled_plugins": [
+            "additional_plugins": [
                 "scc-safety-net@sandboxed-code-official",
                 "frontend-design@anthropic-official",
                 "accessibility-compliance@wshobson-agents"
             ],
+            "additional_mcp_servers": [
+                {
+                    "name": "context7",
+                    "type": "http",
+                    "url": "https://mcp.context7.com/mcp"
+                }
+            ],
             "delegation": {
-                "allow_additional_plugins": true,
                 "allow_project_overrides": true
             }
         },
         "api-ninjas": {
             "description": "Backend FastAPI team - 'The API Ninjas' - silently returning 200 OK",
-            "tech_stack": ["Python", "FastAPI", "PostgreSQL", "Redis"],
-            "enabled_plugins": [
+            "additional_plugins": [
                 "scc-safety-net@sandboxed-code-official",
                 "python-development@wshobson-agents",
                 "claude-mem@thedotmack-mem"
             ],
+            "additional_mcp_servers": [
+                {
+                    "name": "context7",
+                    "type": "http",
+                    "url": "https://mcp.context7.com/mcp"
+                }
+            ],
             "delegation": {
-                "allow_additional_plugins": true,
-                "allow_additional_marketplaces": false,
                 "allow_project_overrides": true
             }
         },
         "default": {
             "description": "Default profile for new team members",
-            "enabled_plugins": [
+            "additional_plugins": [
                 "scc-safety-net@sandboxed-code-official"
             ]
         }
     },
-    "settings": {
-        "session_timeout_hours": 12,
-        "auto_resume": true,
-        "stats_retention_days": 90,
-        "update_check_interval_hours": 24
+    "stats": {
+        "enabled": true,
+        "user_identity_mode": "hash",
+        "retention_days": 90
     }
 }
