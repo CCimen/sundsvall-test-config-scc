@@ -22,7 +22,7 @@
             "owner": "wshobson",
             "repo": "claude-code-agents"
         },
-        "thedotmack-mem": {
+        "thedotmack": {
             "source": "github",
             "owner": "thedotmack",
             "repo": "claude-mem"
@@ -86,7 +86,7 @@
             "additional_plugins": [
                 "scc-safety-net@sandboxed-code-official",
                 "python-development@wshobson-agents",
-                "claude-mem@thedotmack-mem"
+                "claude-mem@thedotmack"
             ],
             "additional_mcp_servers": [
                 {
