@@ -2,9 +2,9 @@
     "$schema": "https://scc-cli.dev/schemas/org-v1.json",
     "schema_version": "1.0.0",
     "organization": {
-        "name": "Hofors kommun",
-        "id": "hofors-kommun",
-        "contact": "it-support@hofors.se"
+        "name": "Sundsvalls kommun",
+        "id": "sundsvalls-kommun",
+        "contact": "it-utveckling@sundsvall.se"
     },
     "marketplaces": {
         "sandboxed-code-official": {
@@ -12,26 +12,40 @@
             "owner": "CCimen",
             "repo": "sandboxed-code-plugins"
         },
-        "anthropic-official": {
+        "anthropics-claude-code": {
             "source": "github",
             "owner": "anthropics",
-            "repo": "claude-code-plugins"
+            "repo": "claude-code"
         },
-        "wshobson-agents": {
+        "ccplugins-awesome-claude-code-plugins": {
             "source": "github",
-            "owner": "wshobson",
-            "repo": "claude-code-agents"
+            "owner": "CCPlugins",
+            "repo": "awesome-claude-code-plugins"
         },
-        "thedotmack": {
+        "steveyegge-beads": {
             "source": "github",
-            "owner": "thedotmack",
-            "repo": "claude-mem"
+            "owner": "steveyegge",
+            "repo": "beads"
+        },
+        "sivalabs-marketplace": {
+            "source": "github",
+            "owner": "sivaprasadreddy",
+            "repo": "sivalabs-marketplace"
         }
     },
     "security": {
-        "blocked_plugins": ["*-experimental", "*-unsafe"],
-        "blocked_mcp_servers": ["*.untrusted.com"],
-        "blocked_base_images": ["*:latest"],
+        "blocked_plugins": [
+            "*-experimental",
+            "*-deprecated",
+            "*-beta",
+            "malicious-*"
+        ],
+        "blocked_mcp_servers": [
+            "*.untrusted.com"
+        ],
+        "blocked_base_images": [
+            "*:latest"
+        ],
         "allow_stdio_mcp": false,
         "safety_net": {
             "action": "block",
@@ -49,61 +63,53 @@
         ],
         "network_policy": "unrestricted",
         "session": {
-            "timeout_hours": 12,
+            "timeout_hours": 10,
             "auto_resume": true
         }
     },
     "delegation": {
         "teams": {
             "allow_additional_plugins": ["*"],
-            "allow_additional_mcp_servers": ["pixeldraken", "api-ninjas"]
+            "allow_additional_mcp_servers": ["ai-teamet", "draken", "dept44"]
         },
         "projects": {
             "inherit_team_delegation": true
         }
     },
     "profiles": {
-        "pixeldraken": {
-            "description": "Frontend React team - 'The Pixel Dragon' - breathing fire into UIs since 2024",
+        "ai-teamet": {
+            "description": "AI-teamet - FastAPI, Python backend, SvelteKit frontend",
             "additional_plugins": [
-                "scc-safety-net@sandboxed-code-official",
-                "frontend-design@anthropic-official",
-                "accessibility-compliance@wshobson-agents"
-            ],
-            "additional_mcp_servers": [
-                {
-                    "name": "context7",
-                    "type": "http",
-                    "url": "https://mcp.context7.com/mcp"
-                }
+                "frontend-design@anthropics-claude-code",
+                "ralph-wiggum@anthropics-claude-code",
+                "changelog-generator@ccplugins-awesome-claude-code-plugins",
+                "python-expert@ccplugins-awesome-claude-code-plugins"
             ],
             "delegation": {
                 "allow_project_overrides": true
             }
         },
-        "api-ninjas": {
-            "description": "Backend FastAPI team - 'The API Ninjas' - silently returning 200 OK",
+        "draken": {
+            "description": "Draken - Accessibility-focused frontend development",
             "additional_plugins": [
-                "scc-safety-net@sandboxed-code-official",
-                "python-development@wshobson-agents",
-                "claude-mem@thedotmack"
-            ],
-            "additional_mcp_servers": [
-                {
-                    "name": "context7",
-                    "type": "http",
-                    "url": "https://mcp.context7.com/mcp"
-                }
+                "accessibility-expert@ccplugins-awesome-claude-code-plugins",
+                "frontend-design@anthropics-claude-code",
+                "beads@steveyegge-beads"
             ],
             "delegation": {
                 "allow_project_overrides": true
             }
         },
-        "default": {
-            "description": "Default profile for new team members",
+        "dept44": {
+            "description": "Dept44 - Spring Boot, Java microservices",
             "additional_plugins": [
-                "scc-safety-net@sandboxed-code-official"
-            ]
+                "ralph-wiggum@anthropics-claude-code",
+                "spring-boot-dev@sivalabs-marketplace"
+            ],
+            "network_policy": "corp-proxy-only",
+            "delegation": {
+                "allow_project_overrides": false
+            }
         }
     },
     "stats": {
