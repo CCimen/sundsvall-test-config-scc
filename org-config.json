@@ -12,11 +12,6 @@
             "owner": "CCimen",
             "repo": "sandboxed-code-plugins"
         },
-        "anthropics-claude-code": {
-            "source": "github",
-            "owner": "anthropics",
-            "repo": "claude-code"
-        },
         "ccplugins-awesome-claude-code-plugins": {
             "source": "github",
             "owner": "CCPlugins",
@@ -80,8 +75,8 @@
         "ai-teamet": {
             "description": "AI-teamet - FastAPI, Python backend, SvelteKit frontend",
             "additional_plugins": [
-                "frontend-design@anthropics-claude-code",
-                "ralph-wiggum@anthropics-claude-code",
+                "frontend-design@claude-plugins-official",
+                "ralph-wiggum@claude-plugins-official",
                 "changelog-generator@ccplugins-awesome-claude-code-plugins",
                 "python-expert@ccplugins-awesome-claude-code-plugins"
             ],
@@ -93,7 +88,7 @@
             "description": "Draken - Accessibility-focused frontend development",
             "additional_plugins": [
                 "accessibility-expert@ccplugins-awesome-claude-code-plugins",
-                "frontend-design@anthropics-claude-code",
+                "frontend-design@claude-plugins-official",
                 "beads@steveyegge-beads"
             ],
             "delegation": {
@@ -103,7 +98,7 @@
         "dept44": {
             "description": "Dept44 - Spring Boot, Java microservices",
             "additional_plugins": [
-                "ralph-wiggum@anthropics-claude-code",
+                "ralph-wiggum@claude-plugins-official",
                 "spring-boot-dev@sivalabs-marketplace"
             ],
             "network_policy": "corp-proxy-only",
