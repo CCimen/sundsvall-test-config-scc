@@ -28,7 +28,7 @@
             "evil-*",
             "localhost:*"
         ],
-        "allow_stdio_mcp": true,
+        "allow_stdio_mcp": false,
         "allowed_stdio_prefixes": [
             "/usr/local/bin",
             "/opt/approved-tools"
